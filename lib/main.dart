@@ -21,7 +21,15 @@ import 'screens/dashboard/home_shell.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService().init();
+
+  // نوٹیفیکیشن سروس شروع کرتے وقت کوئی خرابی آئے تو ایپ کریش نہ ہو،
+  // بس نوٹیفیکیشن فیچر کے بغیر آگے بڑھ جائے
+  try {
+    await NotificationService().init();
+  } catch (e) {
+    debugPrint('Notification init failed: $e');
+  }
+
   runApp(const GharKaHisabApp());
 }
 
@@ -50,13 +58,12 @@ class GharKaHisabApp extends StatelessWidget {
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: themeProvider.themeMode,
-
-            // اردو کے لیے دائیں سے بائیں (RTL) سمت
             locale: const Locale('ur', 'PK'),
             supportedLocales: const [Locale('ur', 'PK'), Locale('en', 'US')],
             localizationsDelegates: const [
               DefaultMaterialLocalizations.delegate,
               DefaultWidgetsLocalizations.delegate,
+              DefaultCupertinoLocalizations.delegate,
             ],
             builder: (context, child) {
               return Directionality(
@@ -72,7 +79,6 @@ class GharKaHisabApp extends StatelessWidget {
   }
 }
 
-/// ایپ شروع ہوتے وقت طے کرتا ہے کہ لاک اسکرین دکھانی ہے یا سیدھا ڈیش بورڈ
 class AppLockGate extends StatelessWidget {
   const AppLockGate({super.key});
 
