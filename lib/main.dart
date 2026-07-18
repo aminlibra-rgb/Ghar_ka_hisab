@@ -57,7 +57,6 @@ class GharKaHisabApp extends StatelessWidget {
             localizationsDelegates: const [
               DefaultMaterialLocalizations.delegate,
               DefaultWidgetsLocalizations.delegate,
-              DefaultCupertinoLocalizations.delegate,
             ],
             builder: (context, child) {
               return Directionality(
