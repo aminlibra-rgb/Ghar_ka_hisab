@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build Release APK
+    name: Build APK
     runs-on: ubuntu-latest
 
     steps:
@@ -33,9 +33,19 @@ jobs:
       - name: Build release APK
         run: flutter build apk --release
 
-      - name: Upload APK
+      - name: Build debug APK
+        run: flutter build apk --debug
+
+      - name: Upload release APK
         uses: actions/upload-artifact@v4
         with:
-          name: ghar-ka-hisab-apk
+          name: ghar-ka-hisab-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghar-ka-hisab-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 30
