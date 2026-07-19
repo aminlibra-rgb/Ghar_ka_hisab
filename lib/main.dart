@@ -22,8 +22,6 @@ import 'screens/dashboard/home_shell.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // نوٹیفیکیشن سروس شروع کرتے وقت کوئی خرابی آئے تو ایپ کریش نہ ہو،
-  // بس نوٹیفیکیشن فیچر کے بغیر آگے بڑھ جائے
   try {
     await NotificationService().init();
   } catch (e) {
@@ -63,14 +61,12 @@ class GharKaHisabApp extends StatelessWidget {
             localizationsDelegates: const [
               DefaultMaterialLocalizations.delegate,
               DefaultWidgetsLocalizations.delegate,
+              DefaultCupertinoLocalizations.delegate,
             ],
-            builder: (context, child) {
-              return Directionality(
-                textDirection: TextDirection.rtl,
-                child: child ?? const SizedBox.shrink(),
-              );
-            },
-            home: const AppLockGate(),
+            home: const Directionality(
+              textDirection: TextDirection.rtl,
+              child: AppLockGate(),
+            ),
           );
         },
       ),
