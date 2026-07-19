@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
@@ -59,13 +60,11 @@ class GharKaHisabApp extends StatelessWidget {
             locale: const Locale('ur', 'PK'),
             supportedLocales: const [Locale('ur', 'PK'), Locale('en', 'US')],
             localizationsDelegates: const [
-              DefaultMaterialLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
             ],
-            home: const Directionality(
-              textDirection: TextDirection.rtl,
-              child: AppLockGate(),
-            ),
+            home: const AppLockGate(),
           );
         },
       ),
